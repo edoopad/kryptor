@@ -33,16 +33,16 @@ contract Kryptor is ERC20Interface {
     uint private constant icoSupplyRatio = 30;  // percentage of _icoSupply in _totalSupply. Preset: 30%
     uint private constant bonusRatio = 20;   // sale bonus percentage
     uint private constant bonusBound = 10;  // First 10% of totalSupply get bonus
-    uint private constant initialPrice = 5000; // Initially, 5000KR KR = 1 ETH
+    uint private constant initialPrice = 5000; // Initially, 5000 Kryptor = 1 ETH
 
     bool public _selling = true;
-    uint public _totalSupply = 10 ** 19; // total supply is 10^19 unit, equivalent to 10^9 KRC
+    uint public _totalSupply = 10 ** 19; // total supply is 10^19 unit, equivalent to 10^9 Kryptor
     uint public _originalBuyPrice = (10 ** 18) / (initialPrice * 10**decimals); // original buy in wei of one unit. Ajustable.
 
     // Owner of this contract
     address public owner;
  
-    // Balances KRC for each account
+    // Balances Kryptor for each account
     mapping(address => uint256) balances;
     
     // _icoSupply is the avalable unit. Initially, it is _totalSupply
@@ -51,7 +51,7 @@ contract Kryptor is ERC20Interface {
     
     // amount of units with bonus
     uint public bonusRemain = (_totalSupply * bonusBound) / 100;//10% _totalSupply
-
+    
     /* Functions with this modifier can only be executed by the owner
      */
     modifier onlyOwner() {
@@ -89,8 +89,16 @@ contract Kryptor is ERC20Interface {
         _;
     }
 
+    ///  Fallback function allows to buy ether.
+    function()
+        public
+        payable
+    {
+        buy();
+    }
+
     /// @dev Constructor
-    function KR() 
+    function Kryptor() 
         public {
         owner = msg.sender;
         balances[owner] = _totalSupply;
@@ -168,7 +176,7 @@ contract Kryptor is ERC20Interface {
     }
     
     /*
-     *  Exchange wei for KR.
+     *  Exchange wei for Kryptor.
      *  modifier _icoSupply > 0
      *  if requestedCoin > _icoSupply 
      *      revert
@@ -188,7 +196,7 @@ contract Kryptor is ERC20Interface {
      *
      *   NOTE: msg.value is in wei
      */ 
-    /// @dev Buys KR
+    /// @dev Buys Kryptor
     /// @return Amount of actual sold units 
     function buy() payable onlyNotOwner validOriginalBuyPrice onSale 
         public
@@ -201,7 +209,7 @@ contract Kryptor is ERC20Interface {
             revert();
         }
         
-        // amount of KR bought
+        // amount of Kryptor bought
         uint actualSoldUnits = 0;
 
         // If bonus is available and requested amount of units is less than bonus amount
@@ -233,19 +241,11 @@ contract Kryptor is ERC20Interface {
         owner.transfer(msg.value);
         
         // submit transfer
-        Transfer(owner, msg.sender, requestedUnits);
+        Transfer(owner, msg.sender, actualSoldUnits);
 
-        return requestedUnits;
+        return actualSoldUnits;
     }
     
-    ///  Fallback function allows to buy ether.
-    function()
-        public
-        payable
-    {
-        buy();
-    }
-
     /// @dev Withdraws Ether in contract (Owner only)
     function withdraw() onlyOwner 
         public 
