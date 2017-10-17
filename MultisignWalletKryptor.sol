@@ -27,8 +27,8 @@ contract ERC20Interface {
 contract KR is ERC20Interface {
     uint public constant decimals = 10;
 
-    string public constant symbol = "KR";
-    string public constant name = "KR";
+    string public constant symbol = "Krytor";
+    string public constant name = "Krytor";
 
     uint private constant icoSupplyRatio = 30;  // percentage of _icoSupply in _totalSupply. Preset: 30%
     uint private constant bonusRatio = 20;   // sale bonus percentage
