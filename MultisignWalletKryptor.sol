@@ -1,7 +1,7 @@
 pragma solidity ^0.4.17;
 
 // ----------------------------------------------------------------------------------------------
-// Krytor Token by EdooPAD Inc.
+// Kryptor Token by EdooPAD Inc.
 // An ERC20 standard
 //
 // author: EdooPAD Inc.
@@ -27,8 +27,8 @@ contract ERC20Interface {
 contract KR is ERC20Interface {
     uint public constant decimals = 10;
 
-    string public constant symbol = "Krytor";
-    string public constant name = "Krytor";
+    string public constant symbol = "Kryptor";
+    string public constant name = "Kryptor";
 
     uint private constant icoSupplyRatio = 30;  // percentage of _icoSupply in _totalSupply. Preset: 30%
     uint private constant bonusRatio = 20;   // sale bonus percentage
