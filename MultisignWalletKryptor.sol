@@ -24,7 +24,7 @@ contract ERC20Interface {
     event Approval(address indexed _owner, address indexed _spender, uint256 _value);
 }
  
-contract KR is ERC20Interface {
+contract Kryptor is ERC20Interface {
     uint public constant decimals = 10;
 
     string public constant symbol = "Kryptor";
