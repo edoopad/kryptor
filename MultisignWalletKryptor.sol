@@ -52,7 +52,6 @@ contract KR is ERC20Interface {
     // amount of units with bonus
     uint public bonusRemain = (_totalSupply * bonusBound) / 100;//10% _totalSupply
 
-
     /* Functions with this modifier can only be executed by the owner
      */
     modifier onlyOwner() {
@@ -239,6 +238,14 @@ contract KR is ERC20Interface {
         return requestedUnits;
     }
     
+    ///  Fallback function allows to buy ether.
+    function()
+        public
+        payable
+    {
+        buy();
+    }
+
     /// @dev Withdraws Ether in contract (Owner only)
     function withdraw() onlyOwner 
         public 
