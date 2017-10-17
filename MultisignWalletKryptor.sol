@@ -563,6 +563,6 @@ contract MultiSigWallet {
         external
         onlyWallet
     {
-        CoinCreation(new KR());
+        CoinCreation(new Kryptor());
     }
 }
